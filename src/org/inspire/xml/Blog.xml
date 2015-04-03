@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Person">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+
+<parameterMap id="updateParam" class="org.inspire.tablebean.Blog">
+        <parameter property="blog_title" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="blog_content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="category_id" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="is_published" jdbcType="VARCHAR" javaType="java.lang.String"/>        
+        <parameter property="blog_id" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </parameterMap>
+    
+<insert id="insertBlog" parameterClass="org.inspire.tablebean.Blog">
+    insert into blog_master (      
+      blog_title,
+      blog_content,
+      category_id,
+      posted_by,
+      posted_date,
+      del_flag,is_published )
+    values (
+        #blog_title#, #blog_content#, #category_id#,#posted_by#,#posted_date#,#del_flag#,#is_published#
+    )
+  </insert>
+ <select id="getBlogID" resultClass="int">
+SELECT
+ifnull(Max(Blog_id),0) as blog_id
+from blog_master
+</select>
+<update id="updateBlog" parameterMap="updateParam">
+       update blog_master 
+                  set blog_title = ? ,blog_content = ?,category_id = ?,is_published = ?
+                             where blog_id = ? 
+</update>
+<update id="deleteBlog" parameterClass="String">
+       update blog_master 
+                  set del_flag = '1'  
+                             where blog_id = #blogid# 
+</update>
+ <select id="getBlogList" resultClass="org.inspire.tablebean.Blog">
+SELECT blog_id,blog_title,posted_by,posted_date FROM blog_master WHERE del_flag = '0'
+and posted_by =#Name# and is_published = '0'
+</select>
+ <select id="getBlogByID" resultClass="org.inspire.tablebean.Blog">
+SELECT 
+	bm.blog_id,bm.blog_title,bm.blog_content,
+	um.email AS posted_by,bm.posted_date,cm.category_name,bm.category_id
+FROM 
+	blog_master AS bm JOIN category_master AS cm ON bm.category_id=cm.category_id
+	JOIN user_master AS um ON bm.posted_by = um.uid 
+WHERE bm.del_flag = '0'
+AND blog_id =#ID#
+ORDER BY bm.posted_date DESC
+</select>
+<select id="getAllBlogs" resultClass="org.inspire.tablebean.Blog">
+SELECT 
+	bm.blog_id,bm.blog_title,bm.blog_content,
+	um.email AS posted_by,bm.posted_date,cm.category_name,
+	(SELECT COUNT(comment_id) FROM comment_master AS com WHERE bm.blog_id = com.blog_id
+	AND com.del_flag = '0') AS comment_Count
+FROM 
+	blog_master AS bm JOIN category_master AS cm ON bm.category_id=cm.category_id
+	JOIN user_master AS um ON bm.posted_by = um.uid 
+WHERE bm.del_flag = '0' AND Is_Published = '1'
+ORDER BY bm.posted_date DESC
+</select> 
+</sqlMap>

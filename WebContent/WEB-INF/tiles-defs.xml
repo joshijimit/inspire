@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC 
+        "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN" 
+        "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd"> 
+<tiles-definitions>
+    <definition name="mainLayout" path="/template.jsp">      
+      <put name="header" value="/MN.do" />
+      <put name="body" value="/HM1.do" />
+      <put name="footer" value="/footer.jsp" />
+    </definition>
+    <definition name="home" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/home.jsp" />
+    </definition>
+    <definition name="blog" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/showBlog.jsp" />
+    </definition>
+    <definition name="newblog" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/newBlog.jsp" />
+    </definition>
+     <definition name="bloglist" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/blogList.jsp" />
+    </definition>
+    <definition name="comment" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/blogComments.jsp" />
+    </definition>
+    <definition name="thought" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/thoughts.jsp" />
+    </definition>
+    <definition name="story" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/stories.jsp" />
+    </definition>
+    <definition name="video" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/video.jsp" />
+    </definition>
+    <definition name="ideal" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/ideals.jsp" />
+    </definition>
+     <definition name="subscribe" extends="mainLayout">
+        <put name="header" value="/MN.do?key=subscribe" />
+    </definition>
+    <definition name="menu" extends="mainLayout">
+        <put name="header" value="/WEB-INF/jsp/menu.jsp" />
+    </definition>
+    <definition name="signup" extends="mainLayout">
+        <put name="header" value="/WEB-INF/jsp/menu.jsp" />
+    </definition>
+    <definition name="login" extends="mainLayout">
+        <put name="header" value="/WEB-INF/jsp/menu.jsp" />
+    </definition>
+    <definition name="blogmanage" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/blogfrm.jsp" />
+    </definition>
+    <definition name="userprofile" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/userProfile.jsp" />
+    </definition>
+    <definition name="changepass" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/changePass.jsp" />
+    </definition>
+    <definition name="contactus" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/contact.jsp" />
+    </definition>
+    <definition name="aboutus" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/about.jsp" />
+    </definition>
+    <definition name="insert" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/message.jsp" />
+    </definition>
+    <definition name="Contect" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/contact.jsp" />
+    </definition>
+    <definition name="book" extends="mainLayout">
+        <put name="body" value="/WEB-INF/jsp/books.jsp" />
+    </definition>
+</tiles-definitions>

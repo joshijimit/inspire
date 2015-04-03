@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Person">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+<select id="getAllVideos" resultClass="org.inspire.tablebean.Video"
+parameterClass="java.util.Map">
+SELECT
+vid,
+vtitle AS vtitle,
+vcontent AS vcontent
+FROM video_master
+WHERE deleted = 0 
+AND approved = 1
+limit #startIndex#,#length#
+</select>
+<select id="getAllVideosCount" resultClass="int">
+SELECT
+count(*) as count
+FROM video_master
+WHERE deleted = 0 
+AND approved = 1
+</select>
+<select id="getAllApproveVideos" resultClass="org.inspire.tablebean.Video"
+parameterClass="java.util.Map">
+SELECT
+vid,
+vtitle AS vtitle,
+vcontent AS vcontent
+FROM video_master
+WHERE deleted = 0 
+AND approved = 0
+limit #startIndex#,#length#
+</select>
+<select id="getAllApproveVideosCount" resultClass="int">
+SELECT
+count(*) as count
+FROM video_master
+WHERE deleted = 0 
+AND approved = 0
+</select>
+<select id="getVideosForHome" resultClass="org.inspire.tablebean.Video">
+SELECT
+vid,
+vtitle AS vtitle,
+vcontent AS vcontent
+FROM video_master
+WHERE deleted = 0 
+AND approved = 1
+and placedOnFront = 1
+</select>
+<select id="getAllVideosByTitle" resultClass="org.inspire.tablebean.Video"
+parameterClass="java.util.Map">
+SELECT
+vid,
+vtitle AS vtitle,
+vcontent AS vcontent
+FROM video_master
+WHERE deleted = 0 
+and approved = 1
+and vtitle like #vtitle#
+limit #startIndex#,#length#
+</select>
+<select id="getAllVideosByTitleCount" resultClass="int">
+SELECT
+count(*) as Count
+FROM video_master
+WHERE deleted = 0 
+and approved = 1
+and vtitle like #vtitle#
+</select>
+ 
+<insert id="insertVideo" parameterClass="org.inspire.tablebean.Video">
+    insert into video_master (      
+      vcontent,
+      vtitle,
+      added_by,
+      added_date,
+      approved,
+      deleted )
+    values (
+       #vcontent#, #vtitle#, #added_by#,#added_date#,#approved#,#deleted#
+    )
+  </insert>
+  <update id="updateVideos" parameterClass="int">
+       update video_master 
+                  set approved = '1' 
+                             where vid = #list# 
+</update>
+</sqlMap>

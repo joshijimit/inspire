@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Person">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+<select id="getAllIdeals" resultClass="org.inspire.tablebean.Ideals">
+SELECT
+iid as iid,
+iname as iname ,
+ipicpath as ipicpath,
+idesc
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 1
+limit #startIndex#,#length#
+</select>
+<select id="getAllApproveIdealsCount" resultClass="int">
+SELECT
+count(*) as count
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 0
+</select>
+<select id="getAllApproveIdeals" resultClass="org.inspire.tablebean.Ideals">
+SELECT
+iid as iid,
+iname as iname ,
+ipicpath as ipicpath,
+idesc
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 0
+</select>
+<select id="getAllIdealsCount" resultClass="int">
+SELECT
+count(*) as count
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 1
+</select>
+<select id="getIdealsForHome" resultClass="org.inspire.tablebean.Ideals">
+SELECT
+iid as iid,
+iname as iname ,
+ipicpath as ipicpath,
+idesc
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 1
+and placedOnFront = 1
+</select>
+<select id="getAllIdealsByName" resultClass="org.inspire.tablebean.Ideals">
+SELECT
+iid as iid,
+iname as iname ,
+ipicpath as ipicpath,
+idesc
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 1
+and iname like #iname#
+limit #startIndex#,#length#
+</select>
+<select id="getAllIdealsByNameCount" resultClass="int">
+SELECT
+count(*) as count
+FROM Ideal_master
+WHERE deleted = 0 
+and approved = 1
+and iname like #iname#
+</select>
+<insert id="insertIdeals" parameterClass="org.inspire.tablebean.Ideals">
+    insert into ideal_master (      
+      iname,
+      ipicpath,
+      idesc,
+      added_by,
+      added_date,
+      approved,
+      deleted )
+    values (
+        #iname#, #ipicpath#, #idesc#, #added_by#,#added_date#,#approved#,#deleted#
+    )
+  </insert>
+   <update id="updateIdeals" parameterClass="int">
+       update ideal_master 
+                  set approved = '1' 
+                             where iid = #list# 
+</update>
+</sqlMap>

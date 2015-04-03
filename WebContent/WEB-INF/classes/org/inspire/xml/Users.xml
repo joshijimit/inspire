@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Person">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+<parameterMap id="updateParam" class="org.inspire.tablebean.Users">
+        <parameter property="uFname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="uMname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="uLname" jdbcType="VARCHAR" javaType="java.lang.String"/>        
+        <parameter property="uWebsite" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="uPic" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <parameter property="email" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </parameterMap>
+    
+<select id="getUser" resultClass="org.inspire.tablebean.Users">
+SELECT
+uid,
+activated as activated,
+email as email
+FROM user_master
+WHERE 
+email = #email# and
+pass = #pass#
+</select>
+<select id="getUserDetails" resultClass="org.inspire.tablebean.Users">
+SELECT
+uid,
+ufname,
+umname,
+ulname,
+uwebsite,
+upic,
+activated as activated,
+email as email
+FROM user_master
+WHERE 
+email = #email#
+</select>
+<select id="getPass" resultClass="String">
+SELECT
+pass
+FROM user_master
+WHERE 
+email = #email#
+</select>
+<insert id="insertUser" parameterClass="org.inspire.tablebean.Users">
+    insert into user_master (      
+      email,
+      pass,
+      activated,uFname )
+    values (
+       #email#,#pass#,#activated#,#uFname#
+    )
+  </insert>
+  <update id="updateUser" parameterClass="org.inspire.tablebean.Users">
+  	update user_master set activated = #activated# where email=#email#
+  </update>
+    <update id="changePass" parameterClass="org.inspire.tablebean.Users">
+  	update user_master set pass = #pass# where email=#email#
+  </update>
+  <update id="updateUserProfile" parameterMap="updateParam">
+  	update user_master set ufname =?,umname=?,ulname=?,
+  	uwebsite=?,upic=?
+  	 where email=?
+  </update>
+</sqlMap>

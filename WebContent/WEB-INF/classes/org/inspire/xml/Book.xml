@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Book">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+<select id="getAllBooks" resultClass="org.inspire.tablebean.Book"
+parameterClass="java.util.Map">
+SELECT
+bid,
+btitle AS btitle,
+bauthor AS vauthor,
+bpath as bpath,
+bicon as bicon
+FROM book_master
+WHERE deleted = 0 
+AND approved = 1
+limit #startIndex#,#length#
+</select>
+<select id="getAllBookCount" resultClass="int">
+SELECT
+count(*) as count
+FROM book_master
+WHERE deleted = 0 
+AND approved = 1
+</select>
+<select id="getAllApproveBooks" resultClass="org.inspire.tablebean.Book"
+parameterClass="java.util.Map">
+SELECT
+bid,
+btitle AS btitle,
+bauthor AS bauthor,
+bpath as bpath,
+bicon as bicon
+FROM book_master
+WHERE deleted = 0 
+AND approved = 0
+limit #startIndex#,#length#
+</select>
+<select id="getAllApproveBooksCount" resultClass="int">
+SELECT
+count(*) as count
+FROM book_master
+WHERE deleted = 0 
+AND approved = 0
+</select>
+<select id="getBooksForHome" resultClass="org.inspire.tablebean.Book">
+SELECT
+bid,
+btitle AS btitle,
+bauthor AS bauthor,
+bpath as bpath,
+bicon as bicon
+FROM book_master
+WHERE deleted = 0 
+AND approved = 1
+and placedOnFront = 1
+</select>
+<select id="getAllBooksByTitle" resultClass="org.inspire.tablebean.Book"
+parameterClass="java.util.Map">
+SELECT
+bid,
+btitle AS btitle,
+bauthor AS bauthor,
+bpath as bpath,
+bicon as bicon
+FROM book_master
+WHERE deleted = 0 
+and approved = 1
+and btitle like #btitle#
+limit #startIndex#,#length#
+</select>
+<select id="getAllBooksByTitleCount" resultClass="int">
+SELECT
+count(*) as Count
+FROM book_master
+WHERE deleted = 0 
+and approved = 1
+and btitle like #btitle#
+</select>
+ 
+<insert id="insertVideo" parameterClass="org.inspire.tablebean.Book">
+    insert into book_master (      
+      bpath,
+      btitle,
+      bauthor,
+      bicon,
+      added_by,
+      added_date,
+      approved,
+      deleted )
+    values (
+       #bpath#, #btitle#, #bauthor#, #bicon#, #added_by#,#added_date#,#approved#,#deleted#
+    )
+  </insert>
+  <update id="updateVideos" parameterClass="int">
+       update video_master 
+                  set approved = '1' 
+                             where vid = #list# 
+</update>
+</sqlMap>

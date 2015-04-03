@@ -1,0 +1,210 @@
+.menuTD
+{
+	
+}
+.commentTable
+{
+	width: 100%;
+	background-color: white;
+}
+.infoMsg
+{
+	color: brown;
+	font-weight: bold;
+	text-align: left;
+	width: 100%;
+}
+.homeLabels
+{
+	color: white;
+	font-weight: bold;
+	background-color: #489211;
+}
+.contDispFont{
+	font-size: 18px;
+	color: #330033;
+	font-weight: bold;	
+}
+.homeTable{
+	width: 100%;
+	background-color: #003300;
+	margin: 0;
+	padding: 0;
+}
+.homeTD
+{
+	background-color: white;
+}
+.menubody {
+	<!--background-color: #003300;-->
+	text
+}
+.menubodyRed {
+	background-color: #FF0000;
+}
+.menubodyBlue {
+	background-color: #0000FF;
+}
+.footerBody {
+	background-color: #003300;
+	font-size: 10px;
+	vertical-align: top;
+}
+.authorHeader{
+	background-color: #003300;
+	color: white;
+}
+.idealHeader{
+	background-color: #003300;
+	text-align: center;
+	color: white;
+}
+.contentHeader{
+	text-align: center;
+	background-color: #003300;
+	color: white;
+}
+.videoHeader{
+	background-color: #003300;
+	width: 40%;
+	color: white;
+	text-align: center;
+}
+.titleHeader{
+	background-color: #003300;
+	width: 60%;
+	color: white;
+	text-align: center;
+}
+.blogTableTR
+{
+	background-color:WHITE;
+}
+.label{
+	background-color:#003300;
+	color : white;
+	font-size: 18px;
+	font-weight: bold;
+	width: 100%;
+	text-align: center; 
+}
+.idealLabel{
+	font-size: 20px;
+	font-weight: lighter;
+	background-color:#003300;
+	text-align: left;
+	width: 100%;
+}
+.homeLabel{
+	font-size: 20px;
+	font-weight: lighter;
+	background-color:#003300;
+	text-align: left;
+	width: 100%;
+	color: white;
+}
+.thoughtTable{
+	background-color: black;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.videoTable{
+	background-color: white;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	
+}
+.idealPic{
+	text-align: center;	
+	background-color: white;	
+	width: 15%;	
+}
+.idealDesc{
+	background-color: white;
+	text-align: left;
+	vertical-align:top;
+	width: 85%;
+}
+.thoughtAuthor{
+	background-color: white;
+	text-align: center;
+}
+.thoughtContent{
+	background-color: white;
+	text-align: center;
+	font-size: 18px;
+	color: #330033;
+	font-weight: bold;	
+}
+.storyContent{
+	background-color: white;
+	text-align: left;
+	font-size: 18px;
+	color: #330033;
+	font-weight: bold;	
+}
+.videoTitle{
+	background-color: white;
+	text-align: left;
+	vertical-align: top;
+}
+.videoContent{
+	background-color: white;
+	text-align: center;
+}
+.addthought{	
+	text-align: left;
+}
+
+.message{
+	color: #003300;
+	font-size: 14px;
+	font-weight: bold;
+}
+.error{
+	color: RED;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.outerTable{
+	width: 100%;
+	font-size: 12px;
+}
+.loginDiv{
+	font-size: 14px;
+	vertical-align: top;
+	'background-color: yellow;
+}
+.signUpDiv{
+	font-size: 14px;
+	background-color: yellow;	
+}
+.nameDiv{
+	font-size: 45px;
+	background-color: yellow;	
+	width: 100%;
+	text-align: right;
+}
+.blogListTable
+{
+	background-color: white;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.storyCut
+{
+	width: 200px;
+	height: 100px;
+	overflow: hidden;
+	text-align: left;
+	word-wrap: break-word;
+}
+.info{
+	color: green;
+	font-size: 12px;
+	font-weight: bold;
+}

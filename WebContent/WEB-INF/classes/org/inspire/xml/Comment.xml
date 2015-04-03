@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Person">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+
+<select id="getCommentsByBlogID" resultClass="org.inspire.tablebean.Comment">
+SELECT 
+cm.comment_id,
+cm.comment_detail,
+bm.blog_title,
+bm.blog_content,
+bm.posted_by,
+bm.posted_date,
+(Select category_name from category_master where category_id = bm.category_id) as category_name,
+CASE WHEN cm.commented_by != 0 THEN um.uFname ELSE cm.commenter_name END AS commented_by,
+CASE WHEN cm.commented_by != 0 THEN um.email ELSE cm.commenter_email END AS commenter_email,
+CASE WHEN cm.commented_by != 0 THEN um.uwebsite ELSE cm.commenter_website END AS website,
+CASE WHEN cm.commented_by != 0 THEN IFNULL(um.upic,'/inspire/images/NotAvail.jpg') ELSE '/inspire/images/NotAvail.jpg' END AS upic
+,cm.commented_date
+ FROM comment_master AS cm
+JOIN blog_master AS bm ON bm.blog_id = cm.blog_id
+LEFT JOIN user_master AS um ON um.uid = cm.commented_by
+ WHERE cm.blog_id = #id#
+</select> 
+<insert id="insertComment" parameterClass="org.inspire.tablebean.Comment">
+insert into inspire_portal.comment_master 
+	(comment_detail, 
+	blog_id, 
+	commented_by, 
+	commented_date, 
+	del_flag, 
+	commenter_name, 
+	commenter_website, 
+	commenter_email
+	) 
+	SELECT	
+	#comment_detail#, 
+	#blog_id#, 
+	CASE WHEN (SELECT uid 
+	FROM inspire_portal.user_master WHERE email = #commenter_email#)
+	IS NOT NULL THEN (SELECT uid 
+	FROM inspire_portal.user_master WHERE email = #commenter_email#) ELSE '0' END,  
+	#commented_date#, 
+	#del_flag#, 
+	#commenter_name#, 
+	#commenter_website#, 
+	#commenter_email#
+</insert>
+</sqlMap>

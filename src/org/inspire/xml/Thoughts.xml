@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Person">
+<!-- Use primitive wrapper type (e.g. Integer) as parameter and allow results to
+be auto-mapped results to Person object (JavaBean) properties -->
+<select id="getAllThoughtsForApprove" 
+resultClass="org.inspire.tablebean.Thoughts"
+parameterClass="java.util.Map">
+SELECT
+tid as tid,
+tcontent as tcontent,
+tauther as tauther
+FROM thought_master
+WHERE deleted = 0 
+and approved = 0
+order by lastupdated desc
+limit #startIndex#,#length#
+</select>
+<select id="getThoughtsCount" resultClass="int" parameterClass="String">
+SELECT
+count(*) as count
+FROM thought_master
+WHERE deleted = 0 
+and approved = 1
+and language = #language# 
+order by lastupdated desc
+</select>
+<select id="getApproveThoughtsCount" resultClass="int">
+SELECT
+count(*) as count
+FROM thought_master
+WHERE deleted = 0 
+and approved = 0
+order by lastupdated desc
+</select>
+<select id="getThoughtsByAutherCount" resultClass="int">
+SELECT
+count(*) as count
+FROM thought_master
+WHERE deleted = 0 
+and approved = 1
+and tauther like #auth#
+and language = #language#
+order by lastupdated desc
+</select> 
+<select id="getThoughtsForHome" resultClass="org.inspire.tablebean.Thoughts">
+SELECT
+tid as tid,
+tcontent as tcontent,
+tauther as tauther
+FROM thought_master
+WHERE deleted = 0 
+and approved = 1
+and placedOnFront =1
+</select> 
+<select id="getAllThoughts" resultClass="org.inspire.tablebean.Thoughts" 
+parameterClass="java.util.Map" >
+SELECT
+tid as tid,
+tcontent as tcontent,
+tauther as tauther
+FROM thought_master
+WHERE deleted = 0 
+and approved = 1
+and language = #language#
+order by lastupdated desc
+limit #startIndex#,#length#
+</select>
+<select id="getAllThoughtsByAuther" resultClass="org.inspire.tablebean.Thoughts">
+SELECT
+tid as tid,
+tcontent as tcontent,
+tauther as tauther
+FROM thought_master
+WHERE deleted = 0 
+and approved = 1
+and tauther like #auth#
+and language = #language#
+order by lastupdated desc
+</select>
+<insert id="insertThoughts" parameterClass="org.inspire.tablebean.Thoughts">
+    insert into thought_master (      
+      tcontent,
+      tauther,
+      lastupdated,
+      approved,
+      deleted,language )
+    values (
+       #tcontent#, #tauther#, #lastupdated#,#approved#,#deleted#,#language#
+    )
+</insert>
+<update id="updateThoughts" parameterClass="int">
+       update thought_master 
+                  set approved = '1' 
+                             where tid = #list# 
+</update>
+</sqlMap>
